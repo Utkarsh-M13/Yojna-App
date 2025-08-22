@@ -11,4 +11,8 @@ The app provides an accessible, mobile-first way for users to browse and learn a
 - **Reanimated**  
 
 
-"This code is provided for viewing purposes only. No permission is granted to use, modify, distribute, or create derivative works."
+
+
+
+
+Copyright (c) 2025 Utkarsh Majithia — All Rights Reserved. Viewing only; no permission granted to use, copy, modify, or distribute this code.
