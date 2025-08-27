@@ -9,3 +9,10 @@ The app provides an accessible, mobile-first way for users to browse and learn a
 - **Expo**  
 - **TypeScript**  
 - **Reanimated**  
+
+
+
+
+
+
+Copyright (c) 2025 Utkarsh Majithia — All Rights Reserved. Viewing only; no permission granted to use, copy, modify, or distribute this code.
