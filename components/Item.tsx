@@ -1,3 +1,4 @@
+import { useTheme } from '@/contexts/ThemeProvider';
 import { ImageKey, IMAGES } from '@/utils/images';
 import React from 'react';
 import { ImageSourcePropType, Pressable, Text, View } from 'react-native';
@@ -29,6 +30,7 @@ const transition = SharedTransition.custom((values) => {
     
 
 const Item = ({onPress, title, description, image, ministryColor, ministry }: { title: string; description: string; image: string; ministry: string, ministryColor: string; onPress: () => void }) => {
+  const {theme, mode} = useTheme()
   const handlePress = () => {
     onPress();
   };
@@ -43,8 +45,8 @@ const Item = ({onPress, title, description, image, ministryColor, ministry }: { 
       : (isKey(s) ? IMAGES[s] : IMAGES.generic);
 
   return (
-    <Pressable style={{ width: "45%", aspectRatio: 1, borderRadius: 12, backgroundColor: '#EEEEEE', // iOS
-      shadowColor: "rgba(0,0,0,0.25)",
+    <Pressable style={{ width: "45%", aspectRatio: 1, borderRadius: 12, backgroundColor: theme.card, // iOS
+      shadowColor: mode === 'dark' ? 'transparent' : "rgba(0,0,0,0.25)",
       shadowOffset: { width: 0, height: 0 },
       shadowOpacity: 1,
       shadowRadius: 6,
@@ -58,8 +60,8 @@ const Item = ({onPress, title, description, image, ministryColor, ministry }: { 
       <Animated.Image sharedTransitionTag='Image' sharedTransitionStyle={transition} source={toSource(imageSource)} style={{ width: '100%', height:"55%", objectFit: 'cover', borderTopLeftRadius:12, borderTopRightRadius:12}} />
 
       <View style={{height: "45%", padding: 8 , display: 'flex', flexDirection: 'column', gap: 4}}>
-        <Text style={{ fontSize: 12, fontWeight: 'medium',  color: '222222', letterSpacing: 10 * (-5 / 100), fontFamily: 'Inter_500Medium' }}>{title}</Text>
-        <Text style={{ fontSize: 9, color: 'black', letterSpacing: (6 * (-5/100)), fontFamily: 'Inter_400Regular' }}>{description}</Text>
+        <Text style={{ fontSize: 12, fontWeight: 'medium',  color: theme.text, letterSpacing: 10 * (-5 / 100), fontFamily: 'Inter_500Medium' }}>{title}</Text>
+        <Text style={{ fontSize: 9, color: theme.text, letterSpacing: (6 * (-5/100)), fontFamily: 'Inter_400Regular' }}>{description}</Text>
       </View>
     </View>
     </Pressable>
