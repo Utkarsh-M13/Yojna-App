@@ -3,15 +3,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 export default function RootLayout() {
-  const { theme } = useTheme();
+  const { theme, mode } = useTheme();
   return (
     <Tabs screenOptions={{
     tabBarShowLabel: false,
     tabBarStyle: {
       backgroundColor: theme.bg,
       justifyContent: 'center',
-      boxShadow: '0px -4px 4px rgba(0, 0, 0, 0.06)',
-      borderTopWidth: 0,       
+      boxShadow: mode === 'dark' ? '0px -2px 10px rgba(255, 255, 255, 0.05)' : '0px -4px 4px rgba(0, 0, 0, 0.06)',
+      borderTopWidth: 0,
 
     },
     tabBarIconStyle: {

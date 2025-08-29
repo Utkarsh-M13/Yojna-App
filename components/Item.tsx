@@ -46,10 +46,10 @@ const Item = ({onPress, title, description, image, ministryColor, ministry }: { 
 
   return (
     <Pressable style={{ width: "45%", aspectRatio: 1, borderRadius: 12, backgroundColor: theme.card, // iOS
-      shadowColor: mode === 'dark' ? 'transparent' : "rgba(0,0,0,0.25)",
+      shadowColor: mode === 'dark' ? 'transparent' : "rgba(0,0,0,0.1)",
       shadowOffset: { width: 0, height: 0 },
       shadowOpacity: 1,
-      shadowRadius: 6,
+      shadowRadius: 4,
       marginHorizontal:'1%',
       // Android
       elevation: 8,

@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.anonymous.yojna-App"
+      "bundleIdentifier": "com.anonymous.yojna-app-ios"
     },
     "android": {
       "adaptiveIcon": {
