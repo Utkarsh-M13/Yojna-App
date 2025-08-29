@@ -122,6 +122,11 @@ const Settings = () => {
             <Text style={{ fontSize: 20, fontFamily: 'Inter_400Regular', color: theme.text}}>Feedback</Text>
           </View>
         </Pressable>
+        <Text style={{ fontSize: 12, color: theme.alt, paddingHorizontal: 32, marginTop: 'auto', paddingBottom: 32, fontFamily: 'Inter_300Light', lineHeight: 18}}>
+          Disclaimer: This app is not affiliated with or endorsed by the Government of India. 
+          Information on schemes is sourced from official government websites and presented 
+          for informational purposes only.
+        </Text>
   </View>
   )
 }

@@ -28,7 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>yojnaapp</string>
-          <string>com.anonymous.yojna-app</string>
+          <string>com.anonymous.yojnaApp</string>
         </array>
       </dict>
     </array>
