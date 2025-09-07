@@ -1,0 +1,46 @@
+[
+  {
+    "ministry": "Agriculture",
+    "color": "#13760B"
+  },
+  {
+    "ministry": "Entrepreneurship",
+    "color": "#D85D0C"
+  },
+  {
+    "ministry": "Finance",
+    "color": "#231F09"
+  },
+  {
+    "ministry": "Health",
+    "color": "grey"
+  },
+  {
+    "ministry": "Housing",
+    "color": "#7C0AB9"
+  },
+  {
+    "ministry": "Information Technology",
+    "color": "#037E87"
+  },
+  {
+    "ministry": "Labour and Employment",
+    "color": "green"
+  },
+  {
+    "ministry": "Petroleum and Natural Gas",
+    "color": "#AD9B34"
+  },
+  {
+    "ministry": "PFRDA",
+    "color": "purple"
+  },
+  {
+    "ministry": "Rural Development",
+    "color": "brown"
+  },
+  {
+    "ministry": "Women and Child Development",
+    "color": "#BD60EF"
+  }
+]

@@ -1,16 +1,23 @@
 // theme.ts
 export const light = {
-  bg: '#DCDCDC',
+  bg: '#DEDEDE',
   text: '#111111',
   card: '#eeeeee',
   alt: '#545454',
-  pressed: '#cccccc'
+  border: '#999999',
+  filter: '#898989',
+  pressed: '#cccccc',
+  popup: '#efefef'
+
 };
 export const dark = {
   bg: '#111111',
   text: '#ffffff',
   card: '#222222',
+  border: '#dddddd',
   alt: '#dddddd',
-  pressed: '#222222'
+  filter: '#373737ff',
+  pressed: '#222222',
+  popup: '#232323'
 };
 export type Theme = typeof light;

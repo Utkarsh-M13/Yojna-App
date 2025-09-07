@@ -16,6 +16,8 @@ export const IMAGES = {
   bank: require('@/assets/images/bank.jpg'),
   pension: require('@/assets/images/pension.jpg'),
   generic: require('@/assets/images/generic.jpg'),
+  rate: require('@/assets/icons/rate.png'),
+  rate_fill: require('@/assets/icons/rate-fill.png'),
 } as const;
 
 
