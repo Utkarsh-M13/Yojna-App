@@ -16,7 +16,7 @@ const CardGrid = () => {
   useEffect(() => {
     const handleFetch = async ()  => {
       const storedFavourites = await AsyncStorage.getItem('favourites');
-      setFavourites(storedFavourites ? JSON.parse(storedFavourites) : null);
+      setFavourites(storedFavourites ? JSON.parse(storedFavourites) : []);
     }
 
     handleFetch();
