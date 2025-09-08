@@ -9,14 +9,14 @@ import Search from './Search';
 
 const CardGrid = () => {
 
-  const [favourites, setFavourites] = React.useState<string[] | null>(null);
+  const [favorites, setFavorites] = React.useState<string[] | null>(null);
   const [filterPopupVisible, setFilterPopupVisible] = React.useState(false);
   const [selectedMinistries, setSelectedMinistries] = React.useState<string[]>([]);
 
   useEffect(() => {
     const handleFetch = async ()  => {
-      const storedFavourites = await AsyncStorage.getItem('favourites');
-      setFavourites(storedFavourites ? JSON.parse(storedFavourites) : []);
+      const storedFavorites = await AsyncStorage.getItem('favorites');
+      setFavorites(storedFavorites ? JSON.parse(storedFavorites) : []);
     }
 
     handleFetch();
@@ -33,9 +33,9 @@ const CardGrid = () => {
     let filtered = data.filter(item => item.title.toLowerCase().includes(searchTerm.toLowerCase()) || item.description.toLowerCase().includes(searchTerm.toLowerCase()));
     filtered = filtered.filter(item => !selectedMinistries.length || selectedMinistries.includes(item.ministry));
     const sorted = filtered.sort((a, b) => {
-      if (favourites === null) return 0;
-      const aFav = favourites.includes(a.id) ? 1 : 0;
-      const bFav = favourites.includes(b.id) ? 1 : 0;
+      if (favorites === null) return 0;
+      const aFav = favorites.includes(a.id) ? 1 : 0;
+      const bFav = favorites.includes(b.id) ? 1 : 0;
       if (aFav === bFav) {
         return a.title.localeCompare(b.title);
       }
@@ -43,24 +43,24 @@ const CardGrid = () => {
     });
 
     setFilteredData(sorted);
-  }, [favourites, searchTerm]);
+  }, [favorites, searchTerm]);
 
   useEffect(() => {
     filterAndSort(selectedMinistries);
-  }, [searchTerm, favourites, filterAndSort]);
+  }, [searchTerm, favorites, filterAndSort]);
 
-  if (favourites === null) {
+  if (favorites === null) {
     return null;
   }
 
   const handleFavoriteToggle = async (id: string) => {
-    let updatedFavourites;
-    if (favourites.includes(id)) {
-      updatedFavourites = favourites.filter(favId => favId !== id);
+    let updatedFavorites;
+    if (favorites.includes(id)) {
+      updatedFavorites = favorites.filter(favId => favId !== id);
     } else {
-      updatedFavourites = [...favourites, id];
+      updatedFavorites = [...favorites, id];
     }
-    await AsyncStorage.setItem('favourites', JSON.stringify(updatedFavourites));
+    await AsyncStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   }
 
   const search = () => {
@@ -99,7 +99,7 @@ const CardGrid = () => {
         paddingBottom: 300,
       }}>
         {filteredData.map((data) => (
-        <Item key={data.id} id={data.id} onPress={() => handlePress(data.id)} title={data.title} description={data.description} image={data.image} ministryColor={data.ministryColor} ministry={data.ministry} handleFavoriteToggle={handleFavoriteToggle} favoriteValue={favourites.includes(data.id)} />
+        <Item key={data.id} id={data.id} onPress={() => handlePress(data.id)} title={data.title} description={data.description} image={data.image} ministryColor={data.ministryColor} ministry={data.ministry} handleFavoriteToggle={handleFavoriteToggle} favoriteValue={favorites.includes(data.id)} />
       ))}
       </View>
     </ScrollView>

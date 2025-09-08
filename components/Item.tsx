@@ -30,7 +30,7 @@ const transition = SharedTransition.custom((values) => {
     
 
 const Item = ({id, onPress, title, description, image, ministryColor, ministry, favoriteValue, handleFavoriteToggle}: {id: string; title: string; description: string; image: string; ministry: string, ministryColor: string; onPress: () => void; favoriteValue: boolean; handleFavoriteToggle: (id: string) => void }) => {
-  const {theme, mode} = useTheme()
+  const {theme, isDark} = useTheme()
   const [favorite, setFavorite] = React.useState(favoriteValue);
   const handlePress = () => {
     onPress();
@@ -48,7 +48,7 @@ const Item = ({id, onPress, title, description, image, ministryColor, ministry, 
 
   return (
     <Pressable style={{ width: "45%", aspectRatio: 1, borderRadius: 12, backgroundColor: theme.card, // iOS
-      shadowColor: mode === 'dark' ? 'transparent' : "rgba(0,0,0,0.1)",
+      shadowColor: isDark ? 'transparent' : "rgba(0,0,0,0.1)",
       shadowOffset: { width: 0, height: 0 },
       shadowOpacity: 1,
       shadowRadius: 4,

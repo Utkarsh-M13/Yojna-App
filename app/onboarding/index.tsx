@@ -1,4 +1,3 @@
-import { useTheme } from '@/contexts/ThemeProvider';
 import suggestions from '@/data/suggestions.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
@@ -6,12 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 
 export default function Index() {
-  const { theme } = useTheme();
   const [page, setPage] = useState(1);
 
   const [favorites, setFavorites] = useState<string[]>([]);
-  const groupKeys = ['farmer','student','senior','women','rural'] as const;
-  type Group = typeof groupKeys[number];
+  type groupKeys = ['farmer','student','senior','women','rural'];
+  type Group = groupKeys[number];
   const [selected, setSelected] = useState<Group[]>([]);
 
 
@@ -34,16 +32,15 @@ export default function Index() {
     for (const category of selected) {
       newFavs.push(...suggestions[category]);
     }
-    setFavorites((prev) => {
-      const updated = [...prev, ...newFavs];
-      return Array.from(new Set(updated));
-    });
+    const updated = [...favorites, ...newFavs];
+    return Array.from(new Set(updated));
   }
 
   const handleSubmit = async () => {
     try {
-      addFavorites();
-      await AsyncStorage.setItem('favorites', JSON.stringify(favorites));
+      const finalFavorites = addFavorites();
+
+      await AsyncStorage.setItem('favorites', JSON.stringify(finalFavorites));
       await AsyncStorage.setItem('hasSeenOnboarding', 'true');
       router.replace("/");
     } catch (error) {
@@ -72,7 +69,7 @@ export default function Index() {
     >
       <Image style={{ width: 256, height: 256 }} source={require("@/assets/images/icon.png")}></Image>
       <Pressable onPress={() => setPage(2)} style={{ width: 256, height: 56, borderRadius: 12, marginTop: 360, marginBottom: 0, backgroundColor: '#304DB1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontSize: 20, fontFamily: "Inter_600SemiBold", color: theme.text }}>Get Started</Text>
+        <Text style={{ fontSize: 20, fontFamily: "Inter_600SemiBold", color: "#FFFFFF" }}>Get Started</Text>
       </Pressable>
     </View>
   );
@@ -132,7 +129,7 @@ export default function Index() {
       </View>
       <View style={{ width: '100%', marginTop: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Pressable onPress={handleSubmit} style={{ width: 256, height: 56, borderRadius: 12, marginTop: 20, marginBottom: 0, backgroundColor: '#304DB1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontSize: 20, fontFamily: "Inter_600SemiBold", color: theme.text }}>See Schemes</Text>
+        <Text style={{ fontSize: 20, fontFamily: "Inter_600SemiBold", color: "#FFFFFF" }}>See Schemes</Text>
         </Pressable>
       </View>
       

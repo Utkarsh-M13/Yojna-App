@@ -22,15 +22,27 @@ export default function RootLayout() {
   const pathname = usePathname();
 
   useEffect(() => {
+    setLoading(true);
     (async () => {
       try {
         const v = await AsyncStorage.getItem(KEY);
-        setSeenOnboarding(v === "true");
+        if (v === null) {
+          await AsyncStorage.setItem(KEY, "false");
+        } else {
+          setSeenOnboarding(v === "true");
+        }
       } finally {
         setLoading(false);
       }
     })();
   }, []);
+
+
+  // useEffect(() => {
+  //   (async () => {
+  //     await clearStorage();
+  //   })();
+  // }, []);
 
   if (!fontsLoaded || loading) {
     return (
@@ -40,8 +52,7 @@ export default function RootLayout() {
     );
   }
 
-  if (seenOnboarding === false && pathname !== "/onboarding") {
-    console.log("redirecting to /onboarding");
+  if (!loading && seenOnboarding === false && pathname !== "/onboarding") {
     return (
       <ThemeProvider>
         <Redirect href="/onboarding" />
@@ -49,11 +60,19 @@ export default function RootLayout() {
     );
   }
 
+  const clearStorage = async () => {
+      try {
+        await AsyncStorage.clear();
+        console.log('AsyncStorage successfully cleared!');
+      } catch (e) {
+        console.error('Failed to clear AsyncStorage:', e);
+      }
+    };
+
   // Normal app
   return (
     <ThemeProvider>
       <Stack>
-        {/* Optional: customize onboarding route options */}
         <Stack.Screen name="onboarding/index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="details/[id]" options={{ headerShown: false, presentation: "modal" }} />

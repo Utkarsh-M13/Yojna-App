@@ -5,7 +5,7 @@ import { Pressable, Text, View } from 'react-native';
 import MinistryButton from './MinistryButton';
 
 const FilterPopup = ({setPopupVisible, toggleMinistry, selectedMinistries}: {setPopupVisible: React.Dispatch<React.SetStateAction<boolean>>, toggleMinistry: (ministry: string) => void, selectedMinistries: string[]}) => {
-  const { theme, mode } = useTheme()
+  const { theme, isDark } = useTheme()
   return (
     <>
     <View style={{ 
@@ -18,7 +18,7 @@ const FilterPopup = ({setPopupVisible, toggleMinistry, selectedMinistries}: {set
       paddingTop: 12, 
       paddingBottom: 12,
       backgroundColor: theme.popup,
-      shadowColor: mode === 'dark' ? 'rgba(128,128,128,0.1)' : "rgba(0,0,0,0.1)",
+      shadowColor: isDark ? 'rgba(128,128,128,0.1)' : "rgba(0,0,0,0.1)",
       shadowOffset: { width: 0, height: 0 },
       shadowOpacity: 1,
       shadowRadius: 2,}}>
