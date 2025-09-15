@@ -28,21 +28,26 @@ export default function RootLayout() {
         const v = await AsyncStorage.getItem(KEY);
         if (v === null) {
           await AsyncStorage.setItem(KEY, "false");
+          const first = await AsyncStorage.getItem(KEY);
+          console.log('first', first)
+          setSeenOnboarding(false);
         } else {
           setSeenOnboarding(v === "true");
         }
-      } finally {
-        setLoading(false);
-      }
+      } catch (e) {
+        console.error("Error accessing AsyncStorage:", e);
+      } 
     })();
+    setLoading(false);
   }, []);
 
 
   // useEffect(() => {
   //   (async () => {
-  //     await clearStorage();
+  //     await clearStorage()
   //   })();
   // }, []);
+
 
   if (!fontsLoaded || loading) {
     return (
@@ -52,7 +57,18 @@ export default function RootLayout() {
     );
   }
 
-  if (!loading && seenOnboarding === false && pathname !== "/onboarding") {
+  if (seenOnboarding) return (
+    <ThemeProvider>
+      <Stack>
+        <Stack.Screen name="onboarding/index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="details/[id]" options={{ headerShown: false, presentation: "modal" }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </ThemeProvider>
+  );
+
+  if (pathname !== "/onboarding") {
     return (
       <ThemeProvider>
         <Redirect href="/onboarding" />
@@ -67,17 +83,5 @@ export default function RootLayout() {
       } catch (e) {
         console.error('Failed to clear AsyncStorage:', e);
       }
-    };
-
-  // Normal app
-  return (
-    <ThemeProvider>
-      <Stack>
-        <Stack.Screen name="onboarding/index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="details/[id]" options={{ headerShown: false, presentation: "modal" }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+  };
 }

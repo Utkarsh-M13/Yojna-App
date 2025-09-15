@@ -127,7 +127,7 @@ export default function Index() {
           <Text style={{ fontSize: 16, fontFamily: "Inter_600SemiBold", color: '#304DB1', position: 'absolute', bottom: 8, letterSpacing: 16 * (-5 / 100) }}>Rural</Text>
         </Pressable>
       </View>
-      <View style={{ width: '100%', marginTop: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ width: '100%', marginTop: 48, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Pressable onPress={handleSubmit} style={{ width: 256, height: 56, borderRadius: 12, marginTop: 20, marginBottom: 0, backgroundColor: '#304DB1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ fontSize: 20, fontFamily: "Inter_600SemiBold", color: "#FFFFFF" }}>See Schemes</Text>
         </Pressable>
