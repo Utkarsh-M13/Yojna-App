@@ -2,7 +2,7 @@ import { useTheme } from '@/contexts/ThemeProvider';
 import data from '@/data/yojna.json';
 import { ImageKey, IMAGES } from '@/utils/images';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import { Dimensions, Image, ImageSourcePropType, Linking, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { Dimensions, Image, ImageSourcePropType, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import Animated, { SharedTransition, SharedTransitionType, withSpring } from 'react-native-reanimated';
 
 const IMG_H = Math.round(Dimensions.get('window').height * 0.30);
@@ -67,9 +67,13 @@ export default function Details() {
 
   return (
     <>
-      <Stack.Screen options={{ headerShown: false }} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: theme.card, }}>
-        <Pressable style={{position: 'absolute', top: 24, left: 16, zIndex: 1}} onPress={() => {router.back()}}>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+      />
+      <View style={{ flex: 1, backgroundColor: theme.card, }}>
+        <Pressable style={{position: 'absolute', top: 40, left: 16, zIndex: 1}} onPress={() => {router.back()}}>
           <Image style={{ width: 48, height: 48}} source={require('@/assets/icons/back.png')}></Image>
         </Pressable>
       <ScrollView style={{width: '100%' , flex:1 , display:'flex',
@@ -125,7 +129,7 @@ export default function Details() {
 
        </View>
       </ScrollView>
-      </SafeAreaView>
+      </View>
     </>
   );
 }

@@ -42,7 +42,7 @@ export default function Index() {
 
       await AsyncStorage.setItem('favorites', JSON.stringify(finalFavorites));
       await AsyncStorage.setItem('hasSeenOnboarding', 'true');
-      router.replace("/");
+      router.replace("/(tabs)");
     } catch (error) {
       console.error('Error saving favorites to AsyncStorage:', error);
     }

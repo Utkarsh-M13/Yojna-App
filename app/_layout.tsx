@@ -17,71 +17,71 @@ export default function RootLayout() {
     Inter_600SemiBold, Inter_700Bold,
   });
 
-  const [loading, setLoading] = useState(true);
+  const pathname = usePathname() || "";
+  const [booting, setBooting] = useState(true);
   const [seenOnboarding, setSeenOnboarding] = useState<boolean | null>(null);
-  const pathname = usePathname();
+  const [checking, setChecking] = useState(false); // suppress redirects during path-change check
 
+  // Initial read once
   useEffect(() => {
-    setLoading(true);
+    let mounted = true;
     (async () => {
       try {
         const v = await AsyncStorage.getItem(KEY);
-        if (v === null) {
-          await AsyncStorage.setItem(KEY, "false");
-          const first = await AsyncStorage.getItem(KEY);
-          console.log('first', first)
-          setSeenOnboarding(false);
-        } else {
-          setSeenOnboarding(v === "true");
-        }
-      } catch (e) {
-        console.error("Error accessing AsyncStorage:", e);
-      } 
+        if (mounted) setSeenOnboarding(v === "true");
+      } finally {
+        if (mounted) setBooting(false);
+      }
     })();
-    setLoading(false);
+    return () => { mounted = false; };
   }, []);
 
+  // Re-check storage whenever the path changes (handles post-onboarding navigation)
+  useEffect(() => {
+    let mounted = true;
+    setChecking(true);
+    (async () => {
+      try {
+        const v = await AsyncStorage.getItem(KEY);
+        if (mounted) setSeenOnboarding(v === "true");
+      } finally {
+        if (mounted) setChecking(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, [pathname]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     await clearStorage()
-  //   })();
-  // }, []);
-
-
-  if (!fontsLoaded || loading) {
+  // Loading gates
+  if (!fontsLoaded || booting || seenOnboarding === null) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <ActivityIndicator />
       </View>
     );
   }
 
-  if (seenOnboarding) return (
-    <ThemeProvider>
-      <Stack>
-        <Stack.Screen name="onboarding/index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="details/[id]" options={{ headerShown: false, presentation: "modal" }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
-
-  if (pathname !== "/onboarding") {
-    return (
-      <ThemeProvider>
-        <Redirect href="/onboarding" />
-      </ThemeProvider>
-    );
+  // Redirects (but do not redirect while `checking` on a path change)
+  if (!checking) {
+    if (seenOnboarding && pathname.startsWith("/onboarding")) {
+      return (
+        <ThemeProvider>
+          <Redirect href="/(tabs)" />
+        </ThemeProvider>
+      );
+    }
+    if (!seenOnboarding && pathname !== "/onboarding") {
+      return (
+        <ThemeProvider>
+          <Redirect href="/onboarding" />
+        </ThemeProvider>
+      );
+    }
   }
 
-  const clearStorage = async () => {
-      try {
-        await AsyncStorage.clear();
-        console.log('AsyncStorage successfully cleared!');
-      } catch (e) {
-        console.error('Failed to clear AsyncStorage:', e);
-      }
-  };
+  // Always render a Stack as the default branch
+  return (
+    <ThemeProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </ThemeProvider>
+  );
 }
